@@ -1,7 +1,8 @@
 import {StackScreenProps} from '@react-navigation/stack';
 import React from 'react';
-import {View, Text, Button, Image} from 'react-native';
+import {Text, Button, Image} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {usePokemonPaginated} from '../hooks/usePokemonPaginated';
 // import Icon from 'react-native-vector-icons/FontAwesome5';
 import {styles} from '../theme/appTheme';
 
@@ -9,9 +10,10 @@ interface Props extends StackScreenProps<any, any> {}
 
 export const HomeScreen = ({navigation}: Props) => {
   const {top} = useSafeAreaInsets();
+  usePokemonPaginated();
 
   return (
-    <View>
+    <>
       <Image
         source={require('../assets/pokebola.png')}
         style={styles.pokebolaBG}
@@ -24,6 +26,6 @@ export const HomeScreen = ({navigation}: Props) => {
         title="Go to Pokemon page"
         onPress={() => navigation.navigate('PokemonScreen')}
       />
-    </View>
+    </>
   );
 };

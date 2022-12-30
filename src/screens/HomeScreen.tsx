@@ -1,12 +1,13 @@
 import {StackScreenProps} from '@react-navigation/stack';
 import React from 'react';
-import {Text, Button, Image, ActivityIndicator} from 'react-native';
+import {Text, Button, Image, ActivityIndicator, View} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {usePokemonPaginated} from '../hooks/usePokemonPaginated';
 // import Icon from 'react-native-vector-icons/FontAwesome5';
 import {styles} from '../theme/appTheme';
-import {FadeInImage} from '../components/FadeInImage';
+// import {FadeInImage} from '../components/FadeInImage';
+import {PokemonCard} from '../components/PokemonCard';
 
 interface Props extends StackScreenProps<any, any> {}
 
@@ -21,28 +22,38 @@ export const HomeScreen = ({navigation}: Props) => {
         style={styles.pokebolaBG}
       />
       {/* <Icon name="dot-circle" size={30} color="red" /> */}
-      <Text style={{...styles.title, ...styles.globalMargin, top: top + 20}}>
-        Pokedex
-      </Text>
 
-      <FlatList
-        data={singlePokemonList}
-        renderItem={({item}) => (
-          <FadeInImage uri={item.picture} style={{width: 100, height: 100}} />
-        )}
-        keyExtractor={pokemon => pokemon.id}
-        //infinite scroll
-        onEndReached={loadPokemons}
-        onEndReachedThreshold={0.4}
-        ListFooterComponent={
-          <ActivityIndicator style={{height: 100}} size={30} color="black" />
-        }
-        showsVerticalScrollIndicator={false}
-      />
-      <Button
+      <View style={{...styles.globalMargin, alignItems: 'center'}}>
+        <FlatList
+          data={singlePokemonList}
+          renderItem={({item}) => (
+            // <FadeInImage uri={item.picture} style={{width: 100, height: 100}} />
+            <PokemonCard pokemon={item} />
+          )}
+          keyExtractor={pokemon => pokemon.id}
+          //infinite scroll
+          onEndReached={loadPokemons}
+          onEndReachedThreshold={0.4}
+          ListFooterComponent={
+            <ActivityIndicator style={{height: 100}} size={30} color="black" />
+          }
+          showsVerticalScrollIndicator={false}
+          numColumns={2}
+          ListHeaderComponent={
+            <Text style={{...styles.title, ...styles.globalMargin}}>
+              Pokedex
+            </Text>
+          }
+          // contentContainerStyle={{
+          //   justifyContent: 'center',
+          //   alignItems: 'center',
+          // }}
+        />
+      </View>
+      {/* <Button
         title="Go to Pokemon page"
         onPress={() => navigation.navigate('PokemonScreen')}
-      />
+      /> */}
     </>
   );
 };

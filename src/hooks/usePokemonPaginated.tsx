@@ -2,7 +2,6 @@ import {useEffect, useRef, useState} from 'react';
 import {pokemonApi} from '../api/pokemonApi';
 import {
   PokemonPaginatedResponse,
-  PokemonResponse,
   Result,
   SinglePokemon,
 } from '../interfaces/pokemonInterfaces';

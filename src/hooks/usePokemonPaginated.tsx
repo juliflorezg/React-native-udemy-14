@@ -13,6 +13,7 @@ export const usePokemonPaginated = () => {
   const [singlePokemonList, setSinglePokemonList] = useState<SinglePokemon[]>(
     [],
   );
+  const [isLoading, setIsLoading] = useState(true);
   const loadPokemons = async () => {
     const res = await pokemonApi.get<PokemonPaginatedResponse>(
       nextPageUrl.current,
@@ -58,6 +59,7 @@ export const usePokemonPaginated = () => {
     });
 
     setSinglePokemonList([...singlePokemonList, ...PokemonList]);
+    setIsLoading(false);
   };
   // const nextPageUrl
   useEffect(() => {
@@ -65,6 +67,8 @@ export const usePokemonPaginated = () => {
   }, []);
 
   return {
+    isLoading,
     singlePokemonList,
+    loadPokemons,
   };
 };

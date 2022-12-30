@@ -6,6 +6,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {usePokemonPaginated} from '../hooks/usePokemonPaginated';
 // import Icon from 'react-native-vector-icons/FontAwesome5';
 import {styles} from '../theme/appTheme';
+import {FadeInImage} from '../components/FadeInImage';
 
 interface Props extends StackScreenProps<any, any> {}
 
@@ -27,10 +28,7 @@ export const HomeScreen = ({navigation}: Props) => {
       <FlatList
         data={singlePokemonList}
         renderItem={({item}) => (
-          <Image
-            source={{uri: item.picture}}
-            style={{width: 100, height: 100}}
-          />
+          <FadeInImage uri={item.picture} style={{width: 100, height: 100}} />
         )}
         keyExtractor={pokemon => pokemon.id}
         //infinite scroll

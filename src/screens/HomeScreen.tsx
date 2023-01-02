@@ -11,7 +11,7 @@ import {PokemonCard} from '../components/PokemonCard';
 
 interface Props extends StackScreenProps<any, any> {}
 
-export const HomeScreen = ({navigation}: Props) => {
+export const HomeScreen = ({navigation, route}: Props) => {
   const {top} = useSafeAreaInsets();
   const {isLoading, singlePokemonList, loadPokemons} = usePokemonPaginated();
 
@@ -28,7 +28,7 @@ export const HomeScreen = ({navigation}: Props) => {
           data={singlePokemonList}
           renderItem={({item}) => (
             // <FadeInImage uri={item.picture} style={{width: 100, height: 100}} />
-            <PokemonCard pokemon={item} />
+            <PokemonCard pokemon={item} navigation={navigation} route={route} />
           )}
           keyExtractor={pokemon => pokemon.id}
           //infinite scroll

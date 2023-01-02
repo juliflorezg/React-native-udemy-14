@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   View,
   Text,
@@ -10,7 +10,6 @@ import {
 import ImageColors from 'react-native-image-colors';
 import {SinglePokemon} from '../interfaces/pokemonInterfaces';
 import {FadeInImage} from './FadeInImage';
-import {useEffect} from 'react';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -21,25 +20,33 @@ interface Props {
 export const PokemonCard = ({pokemon}: Props) => {
   const [backgroundColor, setBackgroundColor] = useState('grey');
   const [textColor, setTextColor] = useState('#eee');
+  let isMounted = useRef(true);
 
   useEffect(() => {
     const getImageColor = async () => {
-      const result = await ImageColors.getColors(pokemon.picture, {
+      const imageColors = await ImageColors.getColors(pokemon.picture, {
         fallback: 'grey',
       });
 
-      switch (result.platform) {
+      if (!isMounted) {
+        return;
+      }
+
+      switch (imageColors.platform) {
         case 'android':
-          result.dominant && setBackgroundColor(result.dominant);
-          result.darkVibrant && setTextColor(result.darkVibrant);
+          imageColors.dominant && setBackgroundColor(imageColors.dominant);
+          imageColors.darkVibrant && setTextColor(imageColors.darkVibrant);
           break;
         case 'ios':
-          setBackgroundColor(result.background);
-          setBackgroundColor(result.primary);
+          setBackgroundColor(imageColors.background);
+          setBackgroundColor(imageColors.primary);
       }
     };
-
     getImageColor();
+
+    return () => {
+      isMounted.current = false;
+    };
   }, []);
 
   return (

@@ -9,6 +9,7 @@ export type RootStackParams = {
   PokemonScreen: {
     singlePokemon: SinglePokemon;
     color: string;
+    textColor: string;
   };
 };
 

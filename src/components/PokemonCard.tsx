@@ -57,6 +57,7 @@ export const PokemonCard = ({pokemon, navigation}: Props) => {
         navigation.navigate('PokemonScreen', {
           singlePokemon: pokemon,
           color: backgroundColor,
+          textColor,
         })
       }>
       <View style={{...styles.cardContainer, backgroundColor}}>

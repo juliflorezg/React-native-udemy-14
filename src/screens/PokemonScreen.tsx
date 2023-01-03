@@ -44,7 +44,7 @@ export const PokemonScreen = ({navigation, route}: Props) => {
         <Text
           style={{
             ...styles.pokemonName,
-            top: top + 45,
+            top: top + 10,
             color: params.textColor,
           }}>
           {params.singlePokemon.name + '\n'}#{params.singlePokemon.id}
@@ -87,8 +87,9 @@ const styles = StyleSheet.create({
   },
   pokemonName: {
     fontSize: 40,
-    alignSelf: 'flex-start',
-    left: 20,
+    alignSelf: 'center',
+    textAlign: 'center',
+    // left: 20,
     textTransform: 'capitalize',
   },
   pokeball: {

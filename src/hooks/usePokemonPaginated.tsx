@@ -19,7 +19,7 @@ export const usePokemonPaginated = () => {
     );
 
     nextPageUrl.current = res.data.next;
-    mapPokemonListToSimplePokemon(res.data.results);
+    mapPokemonListToSinglePokemon(res.data.results);
 
     console.log(res.data.next);
   };
@@ -40,7 +40,7 @@ export const usePokemonPaginated = () => {
   //   // console.log(JSON.stringify(singlePokemonList, null, 2));
   // };
 
-  const mapPokemonListToSimplePokemon = (pokemonList: Result[]) => {
+  const mapPokemonListToSinglePokemon = (pokemonList: Result[]) => {
     // pokemonList.forEach(pokemon => {
     //   // getSinglePokemon(pokemon.url);
     // });

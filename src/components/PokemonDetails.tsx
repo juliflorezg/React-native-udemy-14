@@ -15,7 +15,7 @@ export const PokemonDetails = ({pokemon}: Props) => {
       style={{
         ...StyleSheet.absoluteFillObject,
         marginTop: height / 2.5,
-        paddingBottom: 50,
+        // paddingBottom: 50,
         // marginBottom: 500,
       }}
       showsVerticalScrollIndicator={false}>
@@ -109,7 +109,7 @@ export const PokemonDetails = ({pokemon}: Props) => {
           }}>
           <FadeInImage
             uri={pokemon.sprites.front_default}
-            style={styles.basicSprite}
+            style={{width: 150, height: 150}}
           />
         </View>
       </View>

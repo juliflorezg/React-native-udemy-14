@@ -1,7 +1,6 @@
 import {StackScreenProps} from '@react-navigation/stack';
 import React from 'react';
-import {Text, Button, Image, ActivityIndicator, View} from 'react-native';
-import {FlatList} from 'react-native-gesture-handler';
+import {Text, Image, ActivityIndicator, View, FlatList} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {usePokemonPaginated} from '../hooks/usePokemonPaginated';
 // import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -31,7 +30,7 @@ export const HomeScreen = ({navigation, route}: Props) => {
             <PokemonCard pokemon={item} navigation={navigation} route={route} />
           )}
           keyExtractor={pokemon => pokemon.id}
-          //infinite scroll
+          //*infinite scroll
           onEndReached={loadPokemons}
           onEndReachedThreshold={0.4}
           ListFooterComponent={
@@ -50,10 +49,6 @@ export const HomeScreen = ({navigation, route}: Props) => {
           // }}
         />
       </View>
-      {/* <Button
-        title="Go to Pokemon page"
-        onPress={() => navigation.navigate('PokemonScreen')}
-      /> */}
     </>
   );
 };

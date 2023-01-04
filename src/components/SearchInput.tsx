@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   StyleSheet,
@@ -8,12 +8,22 @@ import {
   ViewStyle,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import {useDebouncedValue} from '../hooks/useDebouncedValue';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
 }
 
 export const SearchInput = ({style}: Props) => {
+  const [searchValue, setSearchValue] = useState('');
+
+  const debouncedValue = useDebouncedValue(searchValue, 1500);
+  // console.log(searchValue);
+
+  useEffect(() => {
+    console.log({debouncedValue});
+  }, [debouncedValue]);
+
   return (
     <View style={{...styles.container, ...(style as any)}}>
       <View style={styles.textBackground}>
@@ -23,6 +33,8 @@ export const SearchInput = ({style}: Props) => {
           style={{...styles.textInput, top: Platform.OS === 'ios' ? 0 : 2}}
           autoCapitalize="none"
           autoCorrect={false}
+          value={searchValue}
+          onChangeText={setSearchValue}
         />
 
         <Icon name="search" size={20} color="#5856D6" />

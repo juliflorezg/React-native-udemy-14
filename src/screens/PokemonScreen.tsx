@@ -8,7 +8,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import {StackScreenProps} from '@react-navigation/stack';
-import {RootStackParams} from '../navigation/Navigator';
+import {RootStackParams} from '../navigation/TabHome';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {FadeInImage} from '../components/FadeInImage';

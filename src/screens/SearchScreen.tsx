@@ -20,11 +20,18 @@ export const SearchScreen = ({navigation, route}: Props) => {
   useEffect(() => {
     if (term.length === 0) {
       return setSinglePokemonSearchResults([]);
-    } else {
+    } else if (isNaN(Number(term))) {
       setSinglePokemonSearchResults(() => {
         return singlePokemonList.filter(singlePokemon =>
           singlePokemon.name.toLowerCase().includes(term.toLowerCase()),
         );
+      });
+    } else {
+      setSinglePokemonSearchResults(() => {
+        const pokemonById = singlePokemonList.find(
+          singlePokemon => singlePokemon.id === term,
+        );
+        return pokemonById ? [pokemonById] : [];
       });
     }
   }, [term]);

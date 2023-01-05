@@ -1,5 +1,5 @@
 import {StackScreenProps} from '@react-navigation/stack';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Platform, Text, FlatList} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Loading} from '../components/Loading';
@@ -13,6 +13,21 @@ interface Props extends StackScreenProps<any, any> {}
 export const SearchScreen = ({navigation, route}: Props) => {
   const {top} = useSafeAreaInsets();
   const {isFetching, singlePokemonList} = usePokemonSearch();
+  const [singlePokemonSearchResults, setSinglePokemonSearchResults] =
+    useState(singlePokemonList);
+  const [term, setTerm] = useState('');
+
+  useEffect(() => {
+    if (term.length === 0) {
+      return setSinglePokemonSearchResults([]);
+    } else {
+      setSinglePokemonSearchResults(() => {
+        return singlePokemonList.filter(singlePokemon =>
+          singlePokemon.name.toLowerCase().includes(term.toLowerCase()),
+        );
+      });
+    }
+  }, [term]);
 
   if (isFetching) {
     return <Loading />;
@@ -25,6 +40,9 @@ export const SearchScreen = ({navigation, route}: Props) => {
         marginHorizontal: 20,
       }}>
       <SearchInput
+        onDebounce={(value: string) => {
+          setTerm(value);
+        }}
         style={{
           position: 'absolute',
           zIndex: 999,
@@ -41,10 +59,10 @@ export const SearchScreen = ({navigation, route}: Props) => {
               ...styles.globalMargin,
               marginTop: Platform.OS === 'ios' ? top + 60 : top + 80,
             }}>
-            Pokedex
+            {term}
           </Text>
         }
-        data={singlePokemonList}
+        data={singlePokemonSearchResults}
         renderItem={({item}) => (
           <PokemonCard pokemon={item} navigation={navigation} route={route} />
         )}
